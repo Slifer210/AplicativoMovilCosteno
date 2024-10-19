@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecuperarContra">
+    tools:context=".Acceso.RecuperarContra">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
 
         <!-- Título de la página -->
         <TextView
-            android:id="@+id/tv_recover_password_title"
+            android:id="@+id/recuperarContra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Recupera tu Contraseña"
@@ -27,7 +27,7 @@
 
         <!-- Campo de email -->
         <EditText
-            android:id="@+id/et_email"
+            android:id="@+id/et_correo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -38,7 +38,7 @@
 
         <!-- Campo de nueva contraseña -->
         <EditText
-            android:id="@+id/et_new_password"
+            android:id="@+id/et_nuevaContra"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contraseña"
@@ -47,7 +47,7 @@
             android:layout_marginBottom="16dp"
             android:backgroundTint="@android:color/darker_gray"/>
 
-        <!-- Campo para confirmar la nueva contraseña -->
+        <!-- Campo para confirmar la nueva contraseña
         <EditText
             android:id="@+id/et_confirm_password"
             android:layout_width="match_parent"
@@ -57,10 +57,10 @@
             android:padding="12dp"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@android:color/darker_gray"/>
-
+        -->
         <!-- Botón de recuperar contraseña -->
         <Button
-            android:id="@+id/btn_recover_password"
+            android:id="@+id/btn_recuperar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#052177"

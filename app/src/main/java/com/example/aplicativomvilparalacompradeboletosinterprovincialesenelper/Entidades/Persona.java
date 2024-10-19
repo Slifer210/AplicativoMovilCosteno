@@ -1,4 +1,4 @@
-package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper;
+package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Entidades;
 import java.util.Date;
 
 public class Persona {

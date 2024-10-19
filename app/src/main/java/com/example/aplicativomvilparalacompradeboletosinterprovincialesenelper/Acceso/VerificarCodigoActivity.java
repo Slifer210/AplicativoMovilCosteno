@@ -1,5 +1,6 @@
-package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper;
+package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Acceso;
 
+import static com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Conexion.apiUrl;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,10 +61,10 @@ public class VerificarCodigoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String url = "http://192.168.1.5:8080/cliente/validarCodigo"; // URL de tu backend
+        String urlValidarCodigo = apiUrl + "/cliente/validarCodigo"; // URL de tu backend
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlValidarCodigo, jsonRequest,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

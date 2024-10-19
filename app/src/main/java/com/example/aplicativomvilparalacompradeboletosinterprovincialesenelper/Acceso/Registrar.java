@@ -1,10 +1,13 @@
-package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper;
+package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Acceso;
+
+import static com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Conexion.apiUrl;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Entidades.Cliente;
+import com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Entidades.EstadoCliente;
+import com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +31,6 @@ import org.json.JSONObject;
 import java.util.Date;
 
 public class Registrar extends AppCompatActivity {
-
     TextView tv_iniciar;
     EditText et_dni, et_apellido, et_nombre, et_email, et_contrasena, et_confirm_contrasena;
     Button btn_registrar;
@@ -78,10 +81,20 @@ public class Registrar extends AppCompatActivity {
         btn_registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registrarUsuario(); // Aquí llamamos al método para registrar el usuario
+                // Desactiva el botón de inmediato al hacer clic
+                if (!btn_registrar.isEnabled()) {
+                    return;  // Si el botón ya está deshabilitado, no ejecuta el código
+                }
+                btn_registrar.setEnabled(false);
+
+                // Valida que todos los campos estén correctos antes de registrar
+                if (validarCampos()) {
+                    registrarUsuario(); // Llama a registrarUsuario si la validación es correcta
+                } else {
+                    btn_registrar.setEnabled(true); // Reactiva el botón si la validación falla
+                }
             }
         });
-
     }
 
     private class RegistroTextWatcher implements TextWatcher {
@@ -195,6 +208,7 @@ public class Registrar extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
+        Log.d("RegistrarUsuario", "Función llamada");
         if (validarCampos()) {
 
             EstadoCliente estadoCliente = new EstadoCliente(1, "Activo");
@@ -231,37 +245,37 @@ public class Registrar extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            String url = "http://192.168.1.5:8080/cliente/enviarCodigo";
+            String urlEnviarCodigo = apiUrl + "/cliente/enviarCodigo";
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonCliente,
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlEnviarCodigo, jsonCliente,
                     response -> {
+                        btn_registrar.setEnabled(true);
                         Toast.makeText(Registrar.this, "Código enviado al correo", Toast.LENGTH_SHORT).show();
 
                         Intent intentVerificar = new Intent(Registrar.this, VerificarCodigoActivity.class);
                         intentVerificar.putExtra("email", et_email.getText().toString());
                         startActivity(intentVerificar);
                     }, error -> {
-                if (error.networkResponse != null && error.networkResponse.statusCode == 409) {
-                    Toast.makeText(Registrar.this, "El correo ya ha sido utilizado.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(Registrar.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
+                        btn_registrar.setEnabled(true);
+                        if (error.networkResponse != null && error.networkResponse.statusCode == 409) {
+                            Toast.makeText(Registrar.this, "El correo ya ha sido utilizado.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(Registrar.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
             queue.add(request);
         }
     }
 
 
     private void consultarDNI(String dni) {
-        String url = "http://192.168.1.5:8080/consultar-dni?dni=" + dni;
-
+        String urlConsultarDni = apiUrl + "/consultar-dni?dni=" + dni;
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlConsultarDni, null,
                 response -> {
                     try {
-
+                        // Obtener los valores del JSON que devuelve el backend
                         String apellido = response.getString("apellidoPaterno") + " " + response.getString("apellidoMaterno");
                         String nombre = response.getString("nombres");
 
@@ -272,16 +286,16 @@ public class Registrar extends AppCompatActivity {
                         // Hacer que los EditTexts sean no editables
                         et_apellido.setEnabled(false);
                         et_nombre.setEnabled(false);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(Registrar.this, "Error al procesar la respuesta", Toast.LENGTH_SHORT).show();
                     }
                 },
                 error -> {
-
                     Toast.makeText(Registrar.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
-
         queue.add(request);
     }
+
 }

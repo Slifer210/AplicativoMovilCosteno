@@ -1,9 +1,12 @@
-package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper;
+package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Acceso;
+
+import static com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Conexion.apiUrl;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +23,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.HomeActivity;
+import com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class inicio extends AppCompatActivity {
 
@@ -99,16 +107,20 @@ public class inicio extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        String url = "http://192.168.1.5:8080/ingresar";
+        String urlIngresar = apiUrl + "/ingresar";
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonRequest,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlIngresar, jsonRequest,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             String token = response.getString("token");
                             guardarToken(token);
+
+                            Log.d("Token", "Token de sesión: " + token);
+
+                            obtenerUsuarioActual(token);
 
                             Toast.makeText(inicio.this, "Inicio de sesión exitoso", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(inicio.this, HomeActivity.class);
@@ -135,5 +147,50 @@ public class inicio extends AppCompatActivity {
                 .edit()
                 .putString("token", token)
                 .apply();
+    }
+
+
+    // Método para obtener el usuario actual
+    private void obtenerUsuarioActual(String token) {
+        String urlUsuarioActual = apiUrl + "/actual-usuario";
+
+        // Crear un nuevo RequestQueue para la nueva solicitud
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        // Configurar la solicitud
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlUsuarioActual, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String estadoCivil = response.getString("estadoCivil");
+                            String direccion = response.getString("direccion");
+                            String fechaNac = response.getString("fechaNac");
+                            String numTel = response.getString("numTel");
+                            Log.d("estadoCivil", "Estado Civil: " + estadoCivil);
+                            Log.d("direccion", "Direccion: " + direccion);
+                            Log.d("fechaNac", "Fecha Nac: " + fechaNac);
+                            Log.d("numTel", "Num Telf: " + numTel);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("UsuarioError", "Error al obtener el usuario actual");
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("UsuarioError", "Error al obtener el usuario actual: " + error.getMessage());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token); // Agregar el token en los encabezados
+                return headers;
+            }
+        };
+
+        queue.add(request);
     }
 }

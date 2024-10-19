@@ -6,13 +6,12 @@ import android.os.Handler;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Acceso.inicio;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static int tiempo=3000;
+    public static int tiempo = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        // Handler to start another activity after a delay
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -28,7 +28,5 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }, tiempo);
-
-
     }
 }

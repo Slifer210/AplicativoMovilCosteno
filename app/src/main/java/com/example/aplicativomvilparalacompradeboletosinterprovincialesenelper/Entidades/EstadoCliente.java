@@ -1,4 +1,4 @@
-package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper;
+package com.example.aplicativomvilparalacompradeboletosinterprovincialesenelper.Entidades;
 
 public class EstadoCliente {
     private int idEstadoCliente;
