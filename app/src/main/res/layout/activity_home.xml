@@ -5,44 +5,183 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/text_view_welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenido a la Aplicación"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"
-        android:layout_centerHorizontal="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Has iniciado sesión exitosamente."
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp"
-        android:layout_below="@id/text_view_welcome"
-        android:layout_centerHorizontal="true"/>
+<!--    <TextView-->
+<!--        android:id="@+id/text_view_welcome"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Bienvenido a la Aplicación"-->
+<!--        android:textSize="24sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:layout_marginBottom="24dp"-->
+<!--        android:layout_centerHorizontal="true"/>-->
 
-    <Button
-        android:id="@+id/btn_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_welcome"
-        android:layout_marginTop="77dp"
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Has iniciado sesión exitosamente."-->
+<!--        android:textSize="18sp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:layout_below="@id/text_view_welcome"-->
+<!--        android:layout_centerHorizontal="true"/>-->
 
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#D32F2F"
-        android:padding="12dp"
-        android:text="Cerrar Sesión"
-        android:textColor="@android:color/white" />
+<!--    <Button-->
+<!--        android:id="@+id/btn_logout"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/text_view_welcome"-->
+<!--        android:layout_marginTop="77dp"-->
 
+<!--        android:layout_marginBottom="16dp"-->
+<!--        android:backgroundTint="#D32F2F"-->
+<!--        android:padding="12dp"-->
+<!--        android:text="Cerrar Sesión"-->
+<!--        android:textColor="@android:color/white" />-->
+
+<!--    Antes-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="-200dp"
+        android:padding="1dp">
+
+        <!-- Imagen superior -->
+
+        <!-- Título de la página -->
+        <ImageView
+            android:id="@+id/headerImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_2" />
+
+        <!-- Spinner para el origen con imagen de bus -->
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="115dp"
+            android:text="Busca tu ruta"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="384dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iconBusOrigen"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/bus" />
+
+            <Spinner
+                android:id="@+id/spinnerOrigen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <!-- Spinner para el destino con imagen de bus -->
+        <LinearLayout
+            android:layout_width="384dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iconBusDestino"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/bus" />
+
+            <Spinner
+                android:id="@+id/spinnerDestino"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <!-- Fecha de salida -->
+        <LinearLayout
+            android:layout_width="384dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="horizontal"
+            android:padding="12dp">
+            <ImageView
+                android:id="@+id/iconFechaSalida"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/calendario" />
+
+            <EditText
+                android:id="@+id/tvFechaSalida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha Salida"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Fecha retorno (opcional) -->
+        <LinearLayout
+            android:layout_width="384dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/iconFechaRetorno"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/calendario" />
+
+
+            <EditText
+                android:id="@+id/tvFechaRetorno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha Llegada"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnBuscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#000099"
+            android:text="BUSCAR"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_above="@id/bottom_navigation"/>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
