@@ -35,6 +35,10 @@
             android:name=".Acceso.inicio"
             android:exported="false" />
         <activity
+            android:name=".ListarActivity"
+            android:exported="false"/>
+
+        <activity
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>

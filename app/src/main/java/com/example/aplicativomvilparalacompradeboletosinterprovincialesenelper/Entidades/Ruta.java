@@ -9,6 +9,12 @@ public class Ruta {
     private Terminal terminalDestino;
     private Administrador administrador;
 
+    public Ruta(String nombreOrigen, String nombreDestino, String duracion) {
+        this.duracion = duracion;
+        this.terminalOrigen = new Terminal(0, "", nombreOrigen, "", "", "", "", "", "Activo");
+        this.terminalDestino = new Terminal(0, "", nombreDestino, "", "", "", "", "", "Activo");
+    }
+
     // Constructor
     public Ruta(int idRuta, double distancia, String duracion, String estadoRuta, Terminal terminalOrigen, Terminal terminalDestino, Administrador administrador) {
         this.idRuta = idRuta;

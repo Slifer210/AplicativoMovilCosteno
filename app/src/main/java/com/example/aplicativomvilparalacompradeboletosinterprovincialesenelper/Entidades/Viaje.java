@@ -15,6 +15,14 @@ public class Viaje {
         private Chofer chofer1;
         private Chofer chofer2;
 
+        public Viaje(int idViaje, Bus bus, Date fechaSalida, String horaSalida, String horaLlegada, Ruta ruta) {
+            this.idViaje = idViaje;
+            this.bus = bus;
+            this.fechaSalida = fechaSalida;
+            this.horaSalida = horaSalida;
+            this.horaLlegada = horaLlegada;
+            this.ruta = ruta;
+        }
         // Constructor
         public Viaje(int idViaje, Date fechaSalida, Date fechaLlegada, String horaSalida, String horaLlegada, Ruta ruta, Administrador administrador, Bus bus, Chofer chofer1, Chofer chofer2) {
             this.idViaje = idViaje;

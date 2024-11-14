@@ -185,20 +185,22 @@ public class HomeActivity extends AppCompatActivity implements DatePickerFragmen
             selectedDateField.setText(day + "/" + (month + 1) + "/" + year);
         }
     }
-   private void buscaViaje(){
-       // Obtiene los valores seleccionados o ingresados
-       String origen = spinnerOrigen.getSelectedItem().toString();
-       String destino = spinnerDestino.getSelectedItem().toString();
-       String fechaSalida = etDate.getText().toString();
-       String fechaRetorno = etDateLlegada.getText().toString();
+    private void buscaViaje(){
+        // Obtiene los valores seleccionados o ingresados
+        String origen = spinnerOrigen.getSelectedItem().toString();
+        String destino = spinnerDestino.getSelectedItem().toString();
+        String fechaSalida = etDate.getText().toString();
+        String fechaRetorno = etDateLlegada.getText().toString();
 
-       // Muestra los valores en el log de Android
-//       Log.d("HomeActivity", "Origen: " + origen);
-//       Log.d("HomeActivity", "Destino: " + destino);
-//       Log.d("HomeActivity", "Fecha de Salida: " + fechaSalida);
-//       Log.d("HomeActivity", "Fecha de Retorno: " + fechaRetorno);
-       buscarRutas();
-   }
+        // Muestra los valores en el log de Android
+        // Log.d("HomeActivity", "Origen: " + origen);
+        // Log.d("HomeActivity", "Destino: " + destino);
+        // Log.d("HomeActivity", "Fecha de Salida: " + fechaSalida);
+        // Log.d("HomeActivity", "Fecha de Retorno: " + fechaRetorno);
+
+        // Busca la ruta por terminales
+        buscarRutas();
+    }
     private void buscarRutas() {
         String selectedTerminalOrigen = spinnerOrigen.getSelectedItem().toString();
         String selectedTerminalDestino = spinnerDestino.getSelectedItem().toString();
@@ -220,7 +222,10 @@ public class HomeActivity extends AppCompatActivity implements DatePickerFragmen
                     try {
                         int idRuta = response.getInt("idRuta");
                         Log.d("RutaInfo", "ID de Ruta obtenida: " + idRuta);
-                        buscarViajes(idRuta); // Llama al método para buscar viajes
+                        // Navegar a ListarActivity y pasar el idRuta
+                        Intent intent = new Intent(HomeActivity.this, ListarActivity.class);
+                        intent.putExtra("idRuta", idRuta); // Pasa el idRuta
+                        startActivity(intent); // Lanza la actividad
                     } catch (JSONException e) {
                         Log.e("RutaError", "Error al parsear la respuesta JSON: " + e.getMessage());
                     }

@@ -11,6 +11,10 @@ public class Bus {
 
     private EstadoBus estadoBus;
 
+    public Bus(String nombre) {
+        this.nombre = nombre;
+    }
+
     public Bus(Long idBus, String nombre, String placa, String modelo, int capacidadPiso1, int capacidadPiso2, EstadoBus estadoBus) {
         this.idBus = idBus;
         this.nombre = nombre;
